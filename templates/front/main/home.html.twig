@@ -1,0 +1,31 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Mon blog{% endblock %}
+
+{%block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
+{% block content %}
+<h1 class='title'>Mon Blog</h1>
+
+
+
+     
+
+        
+{% for article in articles %}
+           
+                <div class='article'>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content |u.truncate(50, '...', false) }}</p>
+                <img src="{{ vich_uploader_asset(article, 'file') }}" alt="{{ article.title }}" />
+                <p>Crée le {{ article.createdAt ? article.createdAt|date('d-m-Y H:i:s') : '' }}</p>
+                <p>Modifié le {{ article.updated ? article.updated|date('d-m-Y H:i:s') : '' }}</p>
+                <a class="btn btn-dark" href='{{ path('showMain', {'id': article.id}) }}'>Lire la suite</a>
+                </div>
+                
+{% endfor %}
+
+{% endblock %}
+

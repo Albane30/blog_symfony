@@ -1,0 +1,49 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block content %}
+    <h1>Category index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Enabled</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>{% if category.enabled %}
+                <i class= "fa fa-check" style ="color: green"></i>
+                    {% else %}
+                <i class= "fa fa-times" style ="color: red"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('category_show', {'id': category.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}"><i class="far fa-edit"></i></a>
+                    <a href="{{ path('category_change_status', {'id': category.id}) }}">
+                    {% if not category.enabled %}
+                        <i class= "fa fa-check" style ="color: green">Activer</i>
+                    {% else %} 
+                        <i class= "fa fa-times" style ="color: red">Désactiver</i>
+                    {% endif %}       
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('category_new') }}">Create new</a>
+{% endblock %}
